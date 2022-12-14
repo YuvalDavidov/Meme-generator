@@ -12,10 +12,10 @@
 <body onload="onInit()">
 
     <header class="main-header flex  space-between">
-        <div class="logo ">Meme Genetator</div>
+        <div class="logo"></div>
         <nav class="nav-bar">
             <ul class="ul-header flex clean-list  space-between">
-                <li><a href="#">Gallery</a></li>
+                <li><a onclick="onBackToGallery()" href="#">Gallery</a></li>
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
@@ -44,16 +44,18 @@
             <input type="text" class="txt-input" onkeyup="onGetKey(this.value)">
             <section class="line-tools">
 
-                <button class="change-line">&#8645;</button>
-                <button class="add-line">+</button>
+                <button onclick="onChangeLine()" class="change-line">&#8645;</button>
+                <button onclick="onCreatLine()" class="add-line">+</button>
                 <button class="remove-line">&#128465;</button>
             </section>
-
-            <button class="increase-font">A+</button>
-            <button class="decrease-font">A-</button>
+            <input onchange="onChangeLineColor(this.value)" type="color" id="line-color">
+            <input onchange="onChangeInsideColor(this.value)" type="color" value="#ff0000" id="inside-color">
+            <button onclick="onChangeFontSize(this)" class="increase-font">A+</button>
+            <button onclick="onChangeFontSize(this)" class="decrease-font">A-</button>
+            <!-- 
             <button class="line-derc-ltr"></button>
             <button class="line-derc-center"></button>
-            <button class="line-derc-rtl"></button>
+            <button class="line-derc-rtl"></button> -->
 
         </div>
     </section>

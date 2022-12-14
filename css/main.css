@@ -24,11 +24,17 @@ body {
 /* header */
 
 .main-header {
+    padding: 6px 10px;
     background-color: var(--clr1);
 }
 
 .main-header .logo {
+    width: 300px;
+    height: 62px;
+    background-image: url('/imgs/LOGO.png');
+    justify-self: center;
     align-self: center;
+    background-size: cover;
 }
 
 .ul-header {
