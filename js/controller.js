@@ -1,5 +1,0 @@
-'use script'
-
-function init() {
-
-}

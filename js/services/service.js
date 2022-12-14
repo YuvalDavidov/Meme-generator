@@ -1,1 +1,5 @@
 'use script'
+
+function creatMeme() {
+
+}
