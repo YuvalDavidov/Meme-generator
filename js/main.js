@@ -8,7 +8,7 @@ function onInit() {
     gCanvas.classList.remove('flex')
     gCanvas.hidden = true
     renderGallery()
-    onMakeMeme(1)
+
 }
 
 function onBackToGallery() {
