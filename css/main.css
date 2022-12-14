@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(205, 205, 205);
+    /* text-align: center; */
+    height: 100vh;
+}
+
+/* vars */
+
+:root {
+    /* colors */
+    /* header + footer */
+    --clr1: #ff7f00;
+    /* search + devloper info*/
+    --clr2: #ffffff;
+}
+
+/* basices */
+
+/* header */
+
+.main-header {
+    background-color: var(--clr1);
+}
+
+.main-header .logo {
+    align-self: center;
+}
+
+.ul-header {
+    flex-direction: row;
+}
+
+/* search-bar */
+
+.search-bar {
+    padding: 10px 0;
+    align-self: center;
+    background-color: var(--clr2);
+}
+
+/* developer info */
+
+.developer-info {
+    padding: 10px 0;
+    background-color: var(--clr2);
+}
+
+.info-container {
+    justify-content: center;
+}
+
+.info-text {
+    flex-direction: column;
+}
+
+
+.selfi {
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+}
+
+/* footer */
+
+footer {
+    background-color: var(--clr1);
+    text-align: center;
+    padding: 50px 0;
+    /* align-self: end; */
+}
+
+/* helpres */
+
+.flex {
+    display: flex
+}
+
+.felx.aling-center {
+    align-items: center;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.clean-list {
+    list-style-type: none;
+}
