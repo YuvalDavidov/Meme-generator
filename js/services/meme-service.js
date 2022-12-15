@@ -35,7 +35,7 @@ var gMeme = {
             txt: 'I sometimes eat Falafel',
             font: '40px arial',
             align: 'left',
-            color1: 'red',
+            color1: 'white',
             color2: 'black',
             pos: { lat: 250, lng: 100 }
         }
@@ -44,7 +44,10 @@ var gMeme = {
 
 function isLine(clickedPos) {
     // var
-    console.log(gMeme.lines);
+    gMeme.lines.forEach(line => {
+        console.log(line.pos);
+    })
+    // console.log(gMeme.lines[0].pos);
 }
 
 function creatKeywordsArray() {
@@ -63,20 +66,6 @@ function nextKeyword() {
     if (gPageIdx * KEYWORDS_SIZE >= gKeywords.length) gPageIdx = 0
 }
 
-function creatMemeLine() {
-    gMeme.lines.push(
-        {
-            txt: 'something',
-            font: '40px arial',
-            aling: 'left',
-            color1: 'red',
-            color2: 'black',
-            pos: { lat: 250, lng: 200 }
-        })
-    // console.log(gMemes[idxOfMeme].lines);
-    return gMeme
-}
-
 function setLineTxt(memeText, textIdx) {
     gMeme.lines[textIdx].txt = memeText
 }
@@ -92,4 +81,9 @@ function getGImgs() {
 function getGMeme() {
     // console.log(idxOfMeme);
     return gMeme
+}
+
+function updateGmeme(currMeme) {
+    gMeme = currMeme
+    // console.log(gMeme);
 }

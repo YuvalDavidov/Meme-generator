@@ -1,12 +1,16 @@
 'use script'
+
+
 let gElCanvas
 let gCtx
-let gMemeText
+let gCurrMeme
 let gTextIdx
+let gCurrLine
+
+let gMemeText
 let memeId
 let gImg
 
-let lineColor
 let insideColor
 let textFont
 
@@ -17,16 +21,23 @@ function initMemeCanvas(idxOfMeme) {
     gImg = getImg(idxOfMeme)
     memeId = gImg.id
 
-    var gMeme = getGMeme()
-    gTextIdx = gMeme.selectedLineIdx
-    gMemeText = gMeme.lines[gTextIdx].txt
-    insideColor = gMeme.lines[gTextIdx].color1
-    lineColor = gMeme.lines[gTextIdx].color2
-    textFont = gMeme.lines[gTextIdx].font
+    gCurrMeme = getGMeme()
+    gCurrMeme.selectedImgId = memeId
+    gTextIdx = gCurrMeme.selectedLineIdx
+    gCurrLine = gCurrMeme.lines[gTextIdx]
+    gMemeText = gCurrLine.txt
 
+    textFont = gCurrLine.font
+
+    document.querySelector('.txt-input').value = gMemeText
     // addListeners()
     renderCanvas()
     renderMeme()
+}
+
+function onDownloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
 }
 
 function addListeners() {
@@ -48,16 +59,27 @@ function addMouseListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    // console.log(pos);
+    console.log(pos);
     isLine(pos)
 }
 
 function getEvPos(ev) {
     let pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
+        lat: ev.offsetX,
+        lng: ev.offsetY
     }
     return pos
+}
+
+function onMoveLine(el) {
+    console.log(gCurrLine);
+    if (el.innerText === '⬆️') gCurrLine.pos.lng -= 5
+    else if (el.innerText === '⬇️') gCurrLine.pos.lng += 5
+    else if (el.innerText === '⬅️') gCurrLine.pos.lat -= 5
+    else gCurrLine.pos.lat += 5
+
+    renderMeme()
+    updateGmeme(gCurrMeme)
 }
 
 function resizeCanvas() {
@@ -67,51 +89,78 @@ function resizeCanvas() {
 }
 
 function onChangeLine() {
-    if (gTextIdx === gMeme.lines.length - 1) {
+    if (gCurrMeme.lines.length === 0 || gCurrMeme.lines.length === 1) return
+    if (gTextIdx === gCurrMeme.lines.length - 1 && gTextIdx !== 0) {
         gTextIdx = 0
-        gMemeText = gMeme.lines[gTextIdx].txt
-
     } else gTextIdx++
-    gMeme.selectedLineIdx = gTextIdx
+    gCurrMeme.selectedLineIdx = gTextIdx
+    gCurrLine = gCurrMeme.lines[gTextIdx]
+    gMemeText = gCurrLine.txt
+    console.log(gCurrLine);
+    updateGmeme(gCurrMeme)
+    document.querySelector('.txt-input').value = gMemeText
+
 }
 
 function onChangeFontSize(val) {
-    textFont = gMeme.lines[gTextIdx].font
     var fontSize = textFont.substring(0, 2)
-    var newFontSize = fontSize
+    var oldFontSize = fontSize
     if (val.innerText === 'A+') fontSize++
     else fontSize--
-    textFont = textFont.replace(newFontSize, fontSize)
-    gMeme.lines[gTextIdx].font = textFont
+    gCurrLine.font = textFont.replace(oldFontSize, fontSize)
+    textFont = gCurrLine.font
+    updateGmeme(gCurrMeme)
     renderMeme()
 }
 
 function onChangeLineColor(val) {
-    lineColor = val
-    gMeme.lines[gTextIdx].color2 = lineColor
+    gCurrLine.color2 = val
+    updateGmeme(gCurrMeme)
     renderMeme()
 }
 
 function onChangeInsideColor(val) {
-    insideColor = val
-    gMeme.lines[gTextIdx].color1 = insideColor
-    console.log(gMeme);
+    gCurrLine.color1 = val
+    updateGmeme(gCurrMeme)
+    renderMeme()
+}
+
+function onRemoveLine() {
+    gCurrMeme.lines.splice(gTextIdx, 1)
+    gTextIdx--
+    if (gTextIdx === (-1)) gTextIdx = 0
+    gCurrMeme.selectedLineIdx = gTextIdx
+    gCurrLine = gCurrMeme.lines[gTextIdx]
+    if (!gCurrLine) gMemeText = ''
+    else gMemeText = gCurrLine.txt
+
+    document.querySelector('.txt-input').value = gMemeText
+    updateGmeme(gCurrMeme)
     renderMeme()
 }
 
 function onCreatLine() {
-    creatMemeLine()
-    gTextIdx++
-    gMeme.selectedLineIdx = gTextIdx
+    gCurrMeme.lines.push(
+        {
+            txt: 'something',
+            font: '40px arial',
+            aling: 'left',
+            color1: 'red',
+            color2: 'black',
+            pos: { lat: 250, lng: 200 }
+        })
+    gCurrLine = gCurrMeme.lines[gTextIdx]
+    console.log(gCurrMeme);
+    updateGmeme(gCurrMeme)
+    onChangeLine()
     renderMeme()
 }
 
-function onGetKey(val) {
+function onKeyUp(val) {
     gMemeText = val
-    setLineTxt(gMemeText, gTextIdx)
+    gCurrMeme.lines[gTextIdx].txt = gMemeText
+    updateGmeme(gCurrMeme)
     renderMeme()
-    console.log(gMeme);
-
 }
 
 function renderMeme() {
@@ -120,7 +169,7 @@ function renderMeme() {
     img.src = gImg.url
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        gMeme.lines.forEach(line => {
+        gCurrMeme.lines.forEach(line => {
             drawText(line.txt, line.pos.lat, line.pos.lng, line.color1, line.color2, line.font)
 
         })

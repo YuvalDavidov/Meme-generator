@@ -104,18 +104,24 @@ body {
     flex-direction: column;
 }
 
+
 .meme-canvas {
-    width: 250px;
+    display: block;
+    margin: auto;
+
 }
 
 .canvas-container {
-    display: flex;
+    width: 90vw;
+    height: 80vh;
+    /* display: flex; */
     margin: 0 auto;
 }
 
 .editor-tools {
     align-self: center;
-    margin-top: 10px;
+    margin: 10px;
+    width: max-content;
     border-radius: 10px;
     background-color: var(--clr2);
     flex-direction: column;
@@ -125,6 +131,7 @@ body {
 
 .editor-tools button {
     cursor: pointer;
+    border: none;
 }
 
 .line-color-editor input {
@@ -137,6 +144,10 @@ body {
 
 .line-color-editor {
     margin-top: 10px;
+}
+
+.move-line {
+    margin: auto;
 }
 
 .font-size {
@@ -206,9 +217,7 @@ footer {
 /* mobile */
 @media (min-width: 780px) {
 
-    .meme-canvas {
-        width: 500px;
-    }
+
 
     .grid {
         grid-template-columns: repeat(4, 1fr);
@@ -220,6 +229,11 @@ footer {
     .canvas-container {
         margin: 0 10px;
     }
+
+    /* 
+    .meme-canvas {
+        width: 500px;
+    } */
 
     .meme-editor {
         flex-direction: row;

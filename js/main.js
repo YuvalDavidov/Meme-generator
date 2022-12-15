@@ -1,7 +1,7 @@
 'use script'
-var gCanvas
-var gGallery
-var gMemeImgs
+let gCanvas
+let gGallery
+let gMemeImgs
 
 function onInit() {
     gCanvas = document.querySelector('.meme-editor')
