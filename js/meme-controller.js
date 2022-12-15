@@ -13,18 +13,57 @@ let textFont
 function initMemeCanvas(idxOfMeme) {
     gElCanvas = document.getElementById('meme-canvas')
     gCtx = gElCanvas.getContext('2d')
-    var gMeme = getGMeme()
-    gImg = getImg(idxOfMeme)
 
+    gImg = getImg(idxOfMeme)
     memeId = gImg.id
+
+    var gMeme = getGMeme()
     gTextIdx = gMeme.selectedLineIdx
     gMemeText = gMeme.lines[gTextIdx].txt
     insideColor = gMeme.lines[gTextIdx].color1
     lineColor = gMeme.lines[gTextIdx].color2
     textFont = gMeme.lines[gTextIdx].font
 
+    // addListeners()
     renderCanvas()
     renderMeme()
+}
+
+function addListeners() {
+    addMouseListeners()
+    // addTouchListeners()
+
+    // window.addEventListener('resize', () => {
+    //     resizeCanvas()
+    //     renderCanvas()
+    //     renderMeme()
+    // })
+}
+
+function addMouseListeners() {
+    // gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    // gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    // console.log(pos);
+    isLine(pos)
+}
+
+function getEvPos(ev) {
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    return pos
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
 }
 
 function onChangeLine() {
@@ -76,19 +115,17 @@ function onGetKey(val) {
 }
 
 function renderMeme() {
-    var height = 100
+
     const img = new Image()
     img.src = gImg.url
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         gMeme.lines.forEach(line => {
-            drawText(line.txt, 250, height, line.color1, line.color2, line.font)
-            height += 100
+            drawText(line.txt, line.pos.lat, line.pos.lng, line.color1, line.color2, line.font)
+
         })
 
     }
-
-
 }
 
 function drawText(text, x, y, gTxtColor, lineColor, textFont) {

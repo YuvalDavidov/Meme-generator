@@ -17,30 +17,37 @@
             <ul class="ul-header flex clean-list  space-between">
                 <li><a onclick="onBackToGallery()" href="#">Gallery</a></li>
                 <li><a href="#">About</a></li>
+
             </ul>
         </nav>
     </header>
 
     <section class="search-bar flex space-between">
-        <input type="text" placeholder="Enter serch keyword">
-        <section class="key-words flex space-between">
+        <div class="search-container">
+            <input type="text" placeholder="Enter search keyword" id="gallery-filter">
+            <button onclick="filterGallery()">Search</button>
+        </div>
+        <div class="keyword-container flex">
+            <section class="key-words flex space-between">
 
-            <div class="key-word">funny</div>
-            <div class="key-word">funny</div>
-            <div class="key-word">funny</div>
-            <div class="key-word">funny</div>
-        </section>
+            </section>
+            <button class="more" onclick="onNextKeyword()">more..</button>
+        </div>
     </section>
 
     <section class="imgs-gallery">
         <div class="grid">
-            <div class="add-meme">+</div>
+
         </div>
     </section>
 
     <section class="meme-editor flex">
-        <canvas id="meme-canvas" height="500" width="500"></canvas>
+        <dic class="canvas-container">
+
+            <canvas class="meme-canvas" id="meme-canvas" height="500" width="500"></canvas>
+        </dic>
         <div class="editor-tools flex">
+            <button onclick="onBackToGallery()">Back to Gallery</button>
             <input type="text" class="txt-input" onkeyup="onGetKey(this.value)">
             <section class="line-tools">
 
@@ -48,10 +55,19 @@
                 <button onclick="onCreatLine()" class="add-line">+</button>
                 <button class="remove-line">&#128465;</button>
             </section>
-            <input onchange="onChangeLineColor(this.value)" type="color" id="line-color">
-            <input onchange="onChangeInsideColor(this.value)" type="color" value="#ff0000" id="inside-color">
-            <button onclick="onChangeFontSize(this)" class="increase-font">A+</button>
-            <button onclick="onChangeFontSize(this)" class="decrease-font">A-</button>
+            <section class="line-color-editor">
+
+                border color: <input onchange="onChangeLineColor(this.value)" type="color" id="line-color">
+                text color:<input onchange="onChangeInsideColor(this.value)" type="color" value="#ff0000"
+                    id="inside-color">
+            </section>
+            <section class="font-size flex">
+
+                <button onclick="onChangeFontSize(this)" class="increase-font">A+</button>
+                <button onclick="onChangeFontSize(this)" class="decrease-font">A-</button>
+            </section>
+
+            <!-- <a href="#" download="my-meme.jpg">Download meme</a> -->
             <!-- 
             <button class="line-derc-ltr"></button>
             <button class="line-derc-center"></button>
@@ -83,6 +99,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/service.js"></script>

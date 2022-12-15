@@ -1,7 +1,8 @@
 'use script'
+const KEYWORDS_SIZE = 3
 
-// var gMemes = []
-
+var gPageIdx = 0
+var gKeywords = []
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
 var gImgs = [
@@ -35,12 +36,32 @@ var gMeme = {
             font: '40px arial',
             align: 'left',
             color1: 'red',
-            color2: 'black'
+            color2: 'black',
+            pos: { lat: 250, lng: 100 }
         }
     ]
 }
 
+function isLine(clickedPos) {
+    // var
+    console.log(gMeme.lines);
+}
 
+function creatKeywordsArray() {
+
+    gImgs.forEach(img => {
+        img.keywords.forEach(key => {
+            if (!gKeywords.includes(key)) gKeywords.push(key)
+        })
+    })
+    var startIdx = gPageIdx * KEYWORDS_SIZE
+    return gKeywords.slice(startIdx, startIdx + KEYWORDS_SIZE)
+}
+
+function nextKeyword() {
+    gPageIdx++
+    if (gPageIdx * KEYWORDS_SIZE >= gKeywords.length) gPageIdx = 0
+}
 
 function creatMemeLine() {
     gMeme.lines.push(
@@ -49,7 +70,8 @@ function creatMemeLine() {
             font: '40px arial',
             aling: 'left',
             color1: 'red',
-            color2: 'black'
+            color2: 'black',
+            pos: { lat: 250, lng: 200 }
         })
     // console.log(gMemes[idxOfMeme].lines);
     return gMeme
