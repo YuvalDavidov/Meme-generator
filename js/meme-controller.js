@@ -1,55 +1,62 @@
 'use script'
 
-
 let gElCanvas
 let gCtx
 let gCurrMeme
+let gImg
 let gTextIdx
 let gCurrLine
 
 let gMemeText
 let memeId
-let gImg
 
 let insideColor
 let textFont
 
-function initMemeCanvas(idxOfMeme) {
+function initMemeCanvas(idxOfMeme, idxOfSavedMeme) {
+    var savedMemes = getSavedMemes()
     gElCanvas = document.getElementById('meme-canvas')
     gCtx = gElCanvas.getContext('2d')
 
     gImg = getImg(idxOfMeme)
     memeId = gImg.id
-
-    gCurrMeme = getGMeme()
-    gCurrMeme.selectedImgId = memeId
-    gTextIdx = gCurrMeme.selectedLineIdx
-    gCurrLine = gCurrMeme.lines[gTextIdx]
-    gMemeText = gCurrLine.txt
-
-    textFont = gCurrLine.font
-
-    document.querySelector('.txt-input').value = gMemeText
-    // addListeners()
+    if (idxOfSavedMeme === undefined) gCurrMeme = getGMeme()
+    else gCurrMeme = savedMemes[idxOfSavedMeme]
+    updateCurrMeme(gCurrMeme)
     renderCanvas()
     renderMeme()
 }
 
-function onDownloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg')
-    elLink.href = imgContent
+function updateCurrMeme(currMeme) {
+    currMeme.selectedImgId = memeId
+    gTextIdx = currMeme.selectedLineIdx
+    gCurrLine = currMeme.lines[gTextIdx]
+    gMemeText = gCurrLine.txt
+    textFont = currMeme.font
+
+    document.querySelector('.txt-input').value = gMemeText
 }
 
-function addListeners() {
-    addMouseListeners()
-    // addTouchListeners()
-
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas()
-    //     renderCanvas()
-    //     renderMeme()
-    // })
+function renderCanvas() {
+    gCtx.fillStyle = 'white'
+    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
+
+function renderMeme() {
+
+    const img = new Image()
+    img.src = gImg.url
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+        gCurrMeme.lines.forEach(line => {
+            drawText(line.txt, line.pos.lat, line.pos.lng, line.color1, line.color2, line.font)
+
+        })
+
+    }
+}
+
+
 
 function addMouseListeners() {
     // gElCanvas.addEventListener('mousemove', onMove)
@@ -72,14 +79,13 @@ function getEvPos(ev) {
 }
 
 function onMoveLine(el) {
-    console.log(gCurrLine);
-    if (el.innerText === '⬆️') gCurrLine.pos.lng -= 5
-    else if (el.innerText === '⬇️') gCurrLine.pos.lng += 5
-    else if (el.innerText === '⬅️') gCurrLine.pos.lat -= 5
-    else gCurrLine.pos.lat += 5
+    if (el.innerText === '⬆️') gCurrLine.pos.lng -= 10
+    else if (el.innerText === '⬇️') gCurrLine.pos.lng += 10
+    else if (el.innerText === '⬅️') gCurrLine.pos.lat -= 10
+    else gCurrLine.pos.lat += 10
 
-    renderMeme()
     updateGmeme(gCurrMeme)
+    renderMeme()
 }
 
 function resizeCanvas() {
@@ -96,10 +102,9 @@ function onChangeLine() {
     gCurrMeme.selectedLineIdx = gTextIdx
     gCurrLine = gCurrMeme.lines[gTextIdx]
     gMemeText = gCurrLine.txt
-    console.log(gCurrLine);
+
     updateGmeme(gCurrMeme)
     document.querySelector('.txt-input').value = gMemeText
-
 }
 
 function onChangeFontSize(val) {
@@ -163,20 +168,6 @@ function onKeyUp(val) {
     renderMeme()
 }
 
-function renderMeme() {
-
-    const img = new Image()
-    img.src = gImg.url
-    img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        gCurrMeme.lines.forEach(line => {
-            drawText(line.txt, line.pos.lat, line.pos.lng, line.color1, line.color2, line.font)
-
-        })
-
-    }
-}
-
 function drawText(text, x, y, gTxtColor, lineColor, textFont) {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = lineColor
@@ -189,7 +180,21 @@ function drawText(text, x, y, gTxtColor, lineColor, textFont) {
     gCtx.strokeText(text, x, y)
 }
 
-function renderCanvas() {
-    gCtx.fillStyle = 'white'
-    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
+function onDownloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
+
+function onSaveMeme() {
+    saveMeme()
+}
+
+function onUploadCanvas() {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+    }
+    doUploadImg(imgDataUrl, onSuccess)
 }

@@ -3,6 +3,7 @@
 }
 
 body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     background-color: rgb(205, 205, 205);
     /* text-align: center; */
@@ -113,12 +114,11 @@ body {
 
 .canvas-container {
     width: 90vw;
-    height: 80vh;
-    /* display: flex; */
     margin: 0 auto;
 }
 
 .editor-tools {
+
     align-self: center;
     margin: 10px;
     width: max-content;
@@ -129,9 +129,18 @@ body {
     padding: 10px;
 }
 
+
+.editor-tools a {
+    margin: 0 auto;
+    color: black;
+    text-decoration: none;
+}
+
 .editor-tools button {
     cursor: pointer;
     border: none;
+    border-radius: 10px;
+    margin: 5px;
 }
 
 .line-color-editor input {
@@ -143,11 +152,16 @@ body {
 }
 
 .line-color-editor {
+    width: max-content;
     margin-top: 10px;
 }
 
 .move-line {
     margin: auto;
+}
+
+.move-line button {
+    background-color: #00000000;
 }
 
 .font-size {
@@ -178,8 +192,8 @@ body {
     flex-direction: column;
 }
 
-
 .selfi {
+    background-image: url('/imgs/yuval_selfi.jpg');
     border-radius: 50%;
     width: 160px;
     height: 160px;
@@ -214,6 +228,13 @@ footer {
     list-style-type: none;
 }
 
+.btn {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 /* mobile */
 @media (min-width: 780px) {
 
@@ -228,12 +249,14 @@ footer {
 
     .canvas-container {
         margin: 0 10px;
+        justify-content: space-around;
+        width: 500px;
     }
 
-    /* 
+
     .meme-canvas {
-        width: 500px;
-    } */
+        margin: 10px;
+    }
 
     .meme-editor {
         flex-direction: row;

@@ -1,6 +1,8 @@
 'use script'
 const KEYWORDS_SIZE = 3
+const STORAGE_KEY = 'MemeGen'
 
+var gSavedMemes = []
 var gPageIdx = 0
 var gKeywords = []
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
@@ -40,6 +42,26 @@ var gMeme = {
             pos: { lat: 250, lng: 100 }
         }
     ]
+}
+
+function getSavedMemes() {
+    gSavedMemes = _loadFromStorage()
+    return gSavedMemes
+}
+
+function updateSavedMeme(idx, currMeme) {
+    gSavedMemes = _loadFromStorage()
+    gSavedMemes[idx] = currMeme
+    console.log(gMeme);
+}
+
+function saveMeme() {
+    gSavedMemes = _loadFromStorage()
+    if (!gSavedMemes) gSavedMemes = []
+
+    gSavedMemes.push(gMeme)
+    _saveToStorage(gSavedMemes)
+    // console.log(savedMeme);
 }
 
 function isLine(clickedPos) {
@@ -86,4 +108,22 @@ function getGMeme() {
 function updateGmeme(currMeme) {
     gMeme = currMeme
     // console.log(gMeme);
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+    const formData = new FormData()
+    formData.append('img', imgDataUrl)
+    fetch('//ca-upload.com/here/upload.php', { method: 'POST', body: formData })
+        .then(res => res.text())
+        .then(url => {
+            onSuccess(url)
+        })
+}
+
+function _loadFromStorage() {
+    return loadFromStorage(STORAGE_KEY)
+}
+
+function _saveToStorage(val) {
+    saveToStorage(STORAGE_KEY, val)
 }

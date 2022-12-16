@@ -28,7 +28,7 @@ function renderKeywords() {
 
 function filterGalleryByKeyword(el) {
     const text = el.innerText
-
+    onBackToGallery()
     var newGalleryMemes = gMemeImgs.filter(img => {
         var id
         img.keywords.find(key => {
@@ -58,21 +58,20 @@ function onNextKeyword() {
     renderKeywords()
 }
 
-function onMakeMeme(idxOfMeme) {
+function onMakeMeme(idxOfMeme, idxOfSavedMeme) {
     gCanvas = document.querySelector('.meme-editor')
     gCanvas.classList.add('flex')
     gCanvas.hidden = false
-    // console.log(idxOfMeme);
-    initMemeCanvas(idxOfMeme)
 
     gGallery = document.querySelector('.imgs-gallery')
     gGallery.hidden = true
+    initMemeCanvas(idxOfMeme, idxOfSavedMeme)
 }
 
 function renderGallery(imgs) {
     var srtHTMLs = ''
     imgs.forEach(meme => {
-        srtHTMLs += `<img onclick="onMakeMeme(${meme.id})" src="/imgs/meme-imgs/${meme.id}.jpg" class="meme-imgs">`
+        srtHTMLs += `<img onclick="onMakeMeme(${meme.id})" src="/${meme.url}" class="meme-imgs">`
     })
     document.querySelector('.grid').innerHTML = srtHTMLs
 }
@@ -94,5 +93,18 @@ function filterGallery() {
         return renderGallery(gMemeImgs)
     }
     else renderGallery(newGalleryMemes)
+
+}
+
+function onShowSavedMemes() {
+    onBackToGallery()
+    var savedMems = getSavedMemes()
+    if (!savedMems) return
+    var strHTML = ''
+
+    savedMems.forEach((meme, idx) => {
+        strHTML += `<img onclick="onMakeMeme(${meme.selectedImgId},${idx})" src="/imgs/meme-imgs/${meme.selectedImgId}.jpg" class="meme-imgs">`
+    })
+    document.querySelector('.grid').innerHTML = strHTML
 
 }

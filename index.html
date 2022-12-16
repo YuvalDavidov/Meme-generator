@@ -12,9 +12,10 @@
 <body onload="onInit()">
 
     <header class="main-header flex  space-between">
-        <div class="logo"></div>
+        <div onclick="onBackToGallery()" class="logo"></div>
         <nav class="nav-bar">
             <ul class="ul-header flex clean-list  space-between">
+                <li><a onclick="onShowSavedMemes()" href="#">Saved Memes</a></li>
                 <li><a onclick="onBackToGallery()" href="#">Gallery</a></li>
                 <li><a href="#">About</a></li>
 
@@ -25,13 +26,13 @@
     <section class="search-bar flex space-between">
         <div class="search-container">
             <input type="text" placeholder="Enter search keyword" id="gallery-filter">
-            <button onclick="filterGallery()">Search</button>
+            <button class="btn" onclick="filterGallery()">Search</button>
         </div>
         <div class="keyword-container flex">
             <section class="key-words flex space-between">
 
             </section>
-            <button class="more" onclick="onNextKeyword()">more..</button>
+            <button class="more btn" onclick="onNextKeyword()">more..</button>
         </div>
     </section>
 
@@ -76,6 +77,8 @@
             </section>
 
             <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download as jpeg</a>
+            <button onclick="onSaveMeme()" class="save-meme">Save meme</button>
+            <button onclick="onUploadCanvas()">Share on facebook</button>
 
         </div>
     </section>
@@ -83,15 +86,15 @@
     <section class="developer-info">
         <section class="info-container flex">
 
-            <img src="imgs/yuval_selfi.jpg" class="selfi">
+            <div class="selfi"></div>
             <section class="info-text flex">
 
                 <div class="name">Yuval Davidov</div>
                 <div class="developer-about">cool guy with nice face</div>
                 <nav class="developer-links">
-                    <a href="#" class="facebook">facebook</a>
+                    <a href="https://www.facebook.com/profile.php?id=100000543687603" class="facebook">facebook</a>
                     <a href="#" class="linkdin">linkdin</a>
-                    <a href="#" class="something">something</a>
+                    <a href="#" class="something">Instagram</a>
                 </nav>
             </section>
         </section>
@@ -107,6 +110,7 @@
     <script src="js/meme-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/service.js"></script>
+    <script src="js/services/service-storage.js"></script>
 </body>
 
 </html>
