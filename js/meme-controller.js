@@ -56,8 +56,6 @@ function renderMeme() {
     }
 }
 
-
-
 function addMouseListeners() {
     // gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
@@ -182,8 +180,11 @@ function drawText(text, x, y, gTxtColor, lineColor, textFont) {
 }
 
 function onDownloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg')
-    elLink.href = imgContent
+    let isDownload = confirm('do you want to download this meme?')
+    if (isDownload) {
+        const imgContent = gElCanvas.toDataURL('image/jpeg')
+        elLink.href = imgContent
+    }
 }
 
 function onSaveMeme() {

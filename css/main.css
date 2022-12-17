@@ -205,6 +205,10 @@ body {
 
 .info-text {
     flex-direction: column;
+    /* justify-content: center; */
+    padding: 20px 0 20px 0;
+    justify-content: space-between;
+
 }
 
 .selfi {

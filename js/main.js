@@ -79,6 +79,7 @@ function renderGallery(imgs) {
 }
 
 function filterGallery() {
+    onBackToGallery()
     const text = document.getElementById('gallery-filter').value
 
     var newGalleryMemes = gMemeImgs.filter(img => {
