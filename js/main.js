@@ -73,6 +73,8 @@ function renderGallery(imgs) {
     imgs.forEach(meme => {
         srtHTMLs += `<img onclick="onMakeMeme(${meme.id})" src="/${meme.url}" class="meme-imgs">`
     })
+    srtHTMLs += `<div class="add-meme-img meme-imgs flex">add meme
+    <input type="file" id="image-input" onchange="onAddImg(event)" accept="image/jpg"></div>`
     document.querySelector('.grid').innerHTML = srtHTMLs
 }
 
@@ -107,4 +109,16 @@ function onShowSavedMemes() {
     })
     document.querySelector('.grid').innerHTML = strHTML
 
+}
+
+function onAddImg(ev) {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+        let img = new Image()
+        img.src = event.target.result
+        let newImg = { id: gMemeImgs.length + 1, url: img.src, keywords: ['me'] }
+        gMemeImgs.push(newImg)
+        img.onload = () => onMakeMeme(newImg.id)
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }

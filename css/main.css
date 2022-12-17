@@ -30,8 +30,9 @@ body {
 }
 
 .main-header .logo {
+    display: flex;
     width: 250px;
-    height: 50px;
+    height: 32px;
     background-image: url('/imgs/LOGO.png');
     justify-self: center;
     align-self: center;
@@ -80,6 +81,20 @@ body {
 
 }
 
+
+.add-meme-img {
+
+    flex-direction: column;
+    background-color: rgba(108, 108, 108, 0.649);
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 20px; */
+}
+
+.add-meme-img input {
+    width: 80px;
+}
+
 .meme-imgs {
     border-radius: 20px;
     width: 150px;
@@ -109,7 +124,7 @@ body {
 .meme-canvas {
     display: block;
     margin: auto;
-
+    width: 250px;
 }
 
 .canvas-container {
@@ -238,7 +253,9 @@ footer {
 /* mobile */
 @media (min-width: 780px) {
 
-
+    .main-header .logo {
+        height: 50px;
+    }
 
     .grid {
         grid-template-columns: repeat(4, 1fr);
@@ -256,6 +273,7 @@ footer {
 
     .meme-canvas {
         margin: 10px;
+        width: 500px;
     }
 
     .meme-editor {

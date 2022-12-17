@@ -32,7 +32,7 @@ function updateCurrMeme(currMeme) {
     gTextIdx = currMeme.selectedLineIdx
     gCurrLine = currMeme.lines[gTextIdx]
     gMemeText = gCurrLine.txt
-    textFont = currMeme.font
+    textFont = gCurrLine.font
 
     document.querySelector('.txt-input').value = gMemeText
 }
@@ -108,6 +108,7 @@ function onChangeLine() {
 }
 
 function onChangeFontSize(val) {
+    console.log(textFont);
     var fontSize = textFont.substring(0, 2)
     var oldFontSize = fontSize
     if (val.innerText === 'A+') fontSize++
