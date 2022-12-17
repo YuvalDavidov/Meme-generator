@@ -71,7 +71,7 @@ function onMakeMeme(idxOfMeme, idxOfSavedMeme) {
 function renderGallery(imgs) {
     var srtHTMLs = ''
     imgs.forEach(meme => {
-        srtHTMLs += `<img onclick="onMakeMeme(${meme.id})" src="/${meme.url}" class="meme-imgs">`
+        srtHTMLs += `<img onclick="onMakeMeme(${meme.id})" src="${meme.url}" class="meme-imgs">`
     })
     srtHTMLs += `<div class="add-meme-img meme-imgs flex">add meme
     <input type="file" id="image-input" onchange="onAddImg(event)" accept="image/jpg"></div>`
