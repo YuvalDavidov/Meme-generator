@@ -33,7 +33,7 @@ body {
     display: flex;
     width: 250px;
     height: 32px;
-    background-image: url('/imgs/LOGO.png');
+    background-image: url('../imgs/LOGO.png');
     justify-self: center;
     align-self: center;
     background-size: cover;
@@ -212,7 +212,7 @@ body {
 }
 
 .selfi {
-    background-image: url('/imgs/yuval_selfi.jpg');
+    background-image: url('../imgs/yuval_selfi.jpg');
     border-radius: 50%;
     width: 160px;
     height: 160px;
