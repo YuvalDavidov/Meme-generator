@@ -11,7 +11,7 @@ function onInit() {
     renderGallery(gMemeImgs)
 
     renderKeywords()
-    onMakeMeme(1)
+    // onMakeMeme(1)
 }
 
 function renderKeywords() {
