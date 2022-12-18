@@ -10,17 +10,18 @@
 </head>
 
 <body onload="onInit()">
+    <div class="main-screen" onclick="toggleMenu()"></div>
 
     <header class="main-header flex  space-between">
         <div onclick="onBackToGallery()" class="logo"></div>
         <nav class="nav-bar">
             <ul class="ul-header flex clean-list  space-between">
                 <li><a onclick="onShowSavedMemes()" href="#">Saved Memes</a></li>
-                <li><a onclick="onBackToGallery()" href="#">Gallery</a></li>
-                <li><a href="#">About</a></li>
-
+                |<li><a onclick="onBackToGallery()" href="#">Gallery</a></li>
+                |<li><a href="#">About</a></li>
             </ul>
         </nav>
+        <button class="manu-toggle-btn" onclick="toggleMenu()">☰</button>
     </header>
 
     <section class="search-bar flex space-between">
@@ -48,7 +49,7 @@
             <canvas class="meme-canvas" id="meme-canvas" height="500" width="500"></canvas>
         </dic>
         <div class="editor-tools flex">
-            <button onclick="onBackToGallery()">Back to Gallery</button>
+            <button class="back-to-g" onclick="onBackToGallery()">Back to Gallery</button>
             <input type="text" class="txt-input" onkeyup="onKeyUp(this.value)">
             <section class="line-tools">
 
@@ -56,25 +57,26 @@
                 <button onclick="onCreatLine()" class="add-line">+</button>
                 <button onclick="onRemoveLine()" class="remove-line">&#128465;</button>
             </section>
+
+            <section class="font-size flex">
+
+                <button onclick="onChangeFontSize(this)" class="increase-font ">A+</button>
+                <button onclick="onChangeFontSize(this)" class="decrease-font ">A-</button>
+            </section>
+            <section class="move-line">
+
+                <button onclick="onMoveLine(this)">&#8592;</button>
+                <button onclick="onMoveLine(this)">&#8593;</button>
+                <button onclick="onMoveLine(this)">&#8594;</button>
+                <button onclick="onMoveLine(this)">&#8595;</button>
+            </section>
             <section class="line-color-editor">
 
                 border color: <input onchange="onChangeLineColor(this.value)" type="color" id="line-color">
                 text color:<input onchange="onChangeInsideColor(this.value)" type="color" value="#ffffff"
                     id="inside-color">
             </section>
-            <section class="font-size flex">
 
-                <button onclick="onChangeFontSize(this)" class="increase-font">A+</button>
-                <button onclick="onChangeFontSize(this)" class="decrease-font">A-</button>
-            </section>
-
-            <section class="move-line">
-
-                <button onclick="onMoveLine(this)">⬅️</button>
-                <button onclick="onMoveLine(this)">⬆️</button>
-                <button onclick="onMoveLine(this)">➡️</button>
-                <button onclick="onMoveLine(this)">⬇️</button>
-            </section>
 
             <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download as jpeg</a>
             <button onclick="onSaveMeme()" class="save-meme">Save meme</button>
@@ -91,16 +93,16 @@
 
                 <div class="name">Yuval Davidov</div>
                 <div class="developer-about">full stack developer</div>
-                <nav class="developer-links">
-                    <a href="https://www.facebook.com/profile.php?id=100000543687603" class="facebook">facebook</a>
+                <nav class="developer-links clean-list">
 
+                    <li><a href="https://www.facebook.com/profile.php?id=100000543687603" class="fa facebook"></a></li>
                 </nav>
             </section>
         </section>
     </section>
 
     <footer>
-        <div class="logo">Meme Genetator</div>
+        <div onclick="onBackToGallery()" class="logo"></div>
         <small>all rights reseved 2022</small>
     </footer>
 

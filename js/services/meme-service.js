@@ -39,7 +39,8 @@ var gMeme = {
             align: 'left',
             color1: 'white',
             color2: 'black',
-            pos: { lat: 250, lng: 100 }
+            pos: { lat: 250, lng: 100 },
+            isDrag: false
         }
     ]
 }
@@ -70,6 +71,18 @@ function isLine(clickedPos) {
         console.log(line.pos);
     })
     // console.log(gMeme.lines[0].pos);
+}
+
+function CreatLine() {
+    gMeme.lines.push(
+        {
+            txt: 'something',
+            font: '40px arial',
+            aling: 'left',
+            color1: 'red',
+            color2: 'black',
+            pos: { lat: 250, lng: 200 }
+        })
 }
 
 function creatKeywordsArray() {

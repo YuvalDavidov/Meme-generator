@@ -25,6 +25,7 @@ function initMemeCanvas(idxOfMeme, idxOfSavedMeme) {
     updateCurrMeme(gCurrMeme)
     renderCanvas()
     renderMeme()
+    // addEventListener()
 }
 
 function updateCurrMeme(currMeme) {
@@ -56,6 +57,10 @@ function renderMeme() {
     }
 }
 
+function addEventListener() {
+    addMouseListeners()
+}
+
 function addMouseListeners() {
     // gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
@@ -65,7 +70,8 @@ function addMouseListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev)
     console.log(pos);
-    isLine(pos)
+    var line = gCurrMeme.lines[0]
+    drawText(line.txt, pos.lat, pos.lng, line.color1, line.color2, line.font)
 }
 
 function getEvPos(ev) {
@@ -77,9 +83,9 @@ function getEvPos(ev) {
 }
 
 function onMoveLine(el) {
-    if (el.innerText === '⬆️') gCurrLine.pos.lng -= 10
-    else if (el.innerText === '⬇️') gCurrLine.pos.lng += 10
-    else if (el.innerText === '⬅️') gCurrLine.pos.lat -= 10
+    if (el.innerText === '↑') gCurrLine.pos.lng -= 10
+    else if (el.innerText === '↓') gCurrLine.pos.lng += 10
+    else if (el.innerText === '←') gCurrLine.pos.lat -= 10
     else gCurrLine.pos.lat += 10
 
     updateGmeme(gCurrMeme)
@@ -93,8 +99,9 @@ function resizeCanvas() {
 }
 
 function onChangeLine() {
-    if (gCurrMeme.lines.length === 0 || gCurrMeme.lines.length === 1) return
-    if (gTextIdx === gCurrMeme.lines.length - 1 && gTextIdx !== 0) {
+    if (gCurrMeme.lines.length === 0) return
+    else if (gCurrMeme.lines.length === 1) document.querySelector('.txt-input').value = gMemeText
+    else if (gTextIdx === gCurrMeme.lines.length - 1 && gTextIdx !== 0) {
         gTextIdx = 0
     } else gTextIdx++
     gCurrMeme.selectedLineIdx = gTextIdx
@@ -103,6 +110,7 @@ function onChangeLine() {
 
     updateGmeme(gCurrMeme)
     document.querySelector('.txt-input').value = gMemeText
+
 }
 
 function onChangeFontSize(val) {
@@ -144,18 +152,7 @@ function onRemoveLine() {
 }
 
 function onCreatLine() {
-    gCurrMeme.lines.push(
-        {
-            txt: 'something',
-            font: '40px arial',
-            aling: 'left',
-            color1: 'red',
-            color2: 'black',
-            pos: { lat: 250, lng: 200 }
-        })
-    gCurrLine = gCurrMeme.lines[gTextIdx]
-    console.log(gCurrMeme);
-    updateGmeme(gCurrMeme)
+    CreatLine()
     onChangeLine()
     renderMeme()
 }

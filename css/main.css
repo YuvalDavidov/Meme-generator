@@ -3,10 +3,8 @@
 }
 
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     background-color: rgb(205, 205, 205);
-    /* text-align: center; */
     height: 100vh;
 }
 
@@ -20,6 +18,35 @@ body {
     --clr2: #ffffff;
 }
 
+/* typography */
+
+@font-face {
+    font-family: eruo;
+    src: url('../fonts/eurof/eurof55.ttf');
+}
+
+@font-face {
+    font-family: lato;
+    src: url('../fonts/lato/Lato-Regular.ttf');
+}
+
+
+
+/* font awsome */
+
+@font-face {
+    font-family: fa;
+    src: url('../fonts/brand-font/fa-brands-400.ttf');
+}
+
+.fa::before {
+    font-family: fa;
+}
+
+.fa.facebook::before {
+    content: "\f39e";
+}
+
 /* basices */
 
 /* header */
@@ -30,20 +57,21 @@ body {
 }
 
 .main-header .logo {
+    cursor: pointer;
     display: flex;
-    width: 250px;
-    height: 32px;
+    width: 50vw;
+    height: 10vw;
     background-image: url('../imgs/LOGO.png');
     justify-self: center;
     align-self: center;
     background-size: cover;
+    transition: 1.2s;
 }
 
 .ul-header a {
     margin: 0 10px;
     color: var(--clr2);
     text-decoration: none;
-
 }
 
 .ul-header {
@@ -51,16 +79,20 @@ body {
     padding-left: 0px;
 }
 
+.manu-toggle-btn {
+    display: none;
+}
+
 /* search-bar */
 
 .search-bar {
-    padding: 10px 10px;
-
+    padding: 10px 0px;
     align-self: center;
     background-color: var(--clr2);
 }
 
 .keyword-container {
+    font-family: eruo;
     align-self: center;
 }
 
@@ -75,12 +107,11 @@ body {
 /* meme gallery */
 
 .grid {
+    margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-
+    gap: 10px;
 }
-
 
 .add-meme-img {
 
@@ -88,7 +119,6 @@ body {
     background-color: rgba(108, 108, 108, 0.649);
     align-items: center;
     justify-content: center;
-    /* border-radius: 20px; */
 }
 
 .add-meme-img input {
@@ -101,7 +131,6 @@ body {
     height: 150px;
     justify-self: center;
     background-size: cover;
-    margin: 10px 0;
     transition: 1.5s;
 }
 
@@ -110,7 +139,6 @@ body {
     width: 180px;
     height: 180px;
 }
-
 
 /* canvas */
 
@@ -124,6 +152,8 @@ body {
 .meme-canvas {
     display: block;
     margin: auto;
+    border: solid 1px black;
+    border-radius: 10px;
     width: 250px;
 }
 
@@ -133,7 +163,7 @@ body {
 }
 
 .editor-tools {
-
+    font-family: lato;
     align-self: center;
     margin: 10px;
     width: max-content;
@@ -152,10 +182,12 @@ body {
 }
 
 .editor-tools button {
+    font-family: inherit;
     cursor: pointer;
     border: none;
     border-radius: 10px;
     margin: 5px;
+    box-shadow: 0px -16px 17px -20px rgb(0 0 0 / 69%) inset;
 }
 
 .line-color-editor input {
@@ -180,7 +212,6 @@ body {
 }
 
 .font-size {
-    margin-top: 10px;
     justify-content: space-around;
 }
 
@@ -205,8 +236,7 @@ body {
 
 .info-text {
     flex-direction: column;
-    /* justify-content: center; */
-    padding: 20px 0 20px 0;
+    padding: 20px 5px;
     justify-content: space-between;
 
 }
@@ -220,6 +250,24 @@ body {
     background-size: cover;
 }
 
+.developer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.developer-links a {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(128, 128, 128, 0.5);
+    font-size: 1rem;
+    color: var(--clr2);
+    text-decoration: none;
+}
+
 /* footer */
 
 footer {
@@ -227,6 +275,18 @@ footer {
     text-align: center;
     padding: 50px 0;
     /* align-self: end; */
+}
+
+footer .logo {
+    cursor: pointer;
+    margin: 0 auto;
+    display: flex;
+    background-image: url('../imgs/LOGO.png');
+    height: 2rem;
+    width: 10rem;
+    justify-self: center;
+    align-self: center;
+    background-size: cover;
 }
 
 /* helpres */
@@ -247,6 +307,7 @@ footer {
     list-style-type: none;
 }
 
+
 .btn {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border: none;
@@ -255,10 +316,92 @@ footer {
 }
 
 /* mobile */
+
+@media (min-width: 580px) {
+    .main-header .logo {
+        width: 20vw;
+        height: 4vw;
+    }
+}
+
+@media (max-width: 780px) {
+
+    .meme-imgs:nth-child(even) {
+        justify-self: start;
+    }
+
+    .meme-imgs:nth-child(odd) {
+        justify-self: end;
+    }
+
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+    }
+
+    .manu-toggle-btn {
+        display: block;
+        height: 2em;
+        align-self: center;
+        color: var(--clr2);
+        font-size: 1.5em;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+    }
+
+    body.menu-open .ul-header {
+        max-height: 100vh;
+    }
+
+    body.menu-open .main-screen {
+        display: block;
+    }
+
+    .ul-header {
+        width: 100%;
+        position: absolute;
+        transform: translateY(100%);
+        background-color: var(--clr1);
+        right: 0;
+        top: -71px;
+        justify-content: flex-end;
+        flex-direction: column;
+        max-height: 0;
+        padding-left: 0px;
+        overflow: hidden;
+        z-index: 2;
+        transition: max-height 1s, box-shadow 0.6s;
+    }
+
+    .ul-header li {
+        box-shadow: inset 0px -6px 8px 0px rgb(0 0 0 / 20%);
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.499);
+    }
+
+    .ul-header a:hover {
+        color: rgb(255, 191, 117);
+    }
+
+    .main-screen {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: #0000007b;
+        cursor: pointer;
+        transform: opacity 0.6s;
+        z-index: 1;
+    }
+
+}
+
 @media (min-width: 780px) {
 
-    .main-header .logo {
-        height: 50px;
+    .search-bar {
+        padding: 10px 10px;
     }
 
     .grid {
@@ -273,7 +416,6 @@ footer {
         justify-content: space-around;
         width: 500px;
     }
-
 
     .meme-canvas {
         margin: 10px;

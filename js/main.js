@@ -11,7 +11,7 @@ function onInit() {
     renderGallery(gMemeImgs)
 
     renderKeywords()
-    // onMakeMeme(1)
+    onMakeMeme(1)
 }
 
 function renderKeywords() {
@@ -122,4 +122,8 @@ function onAddImg(ev) {
         img.onload = () => onMakeMeme(newImg.id)
     }
     reader.readAsDataURL(ev.target.files[0])
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
 }
